@@ -61,12 +61,12 @@ module.exports = (robot) ->
       cmds = cmds.filter (cmd) ->
         cmd.match new RegExp(filter, 'i')
       if cmds.length == 0
-        msg.send "No available commands match #{filter}"
-        return
+        emit = "No available commands match #{filter}"
+    else
+        emit = cmds.join "\n"
 
-    emit = cmds.join "\n"
-
-    msg.send emit
+    user = msg.message.user.name
+    robot.send({user: {name: user}}, emit)
 
   robot.router.get "/#{robot.name}/help", (req, res) ->
     cmds = renamedHelpCommands(robot).map (cmd) ->
