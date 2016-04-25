@@ -66,7 +66,7 @@ module.exports = (robot) ->
         emit = cmds.join "\n"
 
     user = msg.message.user.name
-    robot.send({user: {name: user}}, emit)
+    robot.send {room: user}, emit
 
   robot.router.get "/#{robot.name}/help", (req, res) ->
     cmds = renamedHelpCommands(robot).map (cmd) ->
